@@ -1,31 +1,48 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	<channel>
-		<title>{{ site.name | xml_escape }}</title>
-		<description>{% if site.description %}{{ site.description | xml_escape }}{% endif %}</description>
-		<link>{{ site.url }}</link>
-		<atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
-		{% for post in site.posts limit:10 %}
+		<title>Understanding AI</title>
+		<description>{&quot;meta&quot;=&gt;&quot;A guide to artificial intelligence.&quot;, &quot;subtitle&quot;=&gt;&quot;A guide to artificial intelligence.&quot;}</description>
+		<link>http://cygnuhss.github.io</link>
+		<atom:link href="http://cygnuhss.github.io/feed.xml" rel="self" type="application/rss+xml" />
+		
 			<item>
-				<title>{{ post.title | xml_escape }}</title>
-				{% if post.author %}
-					<dc:creator>{{ post.author | xml_escape }}</dc:creator>
-				{% else %}
-					{% if site.author %}
-						<dc:creator>{{ site.author | xml_escape }}</dc:creator>
-					{% endif %}
-				{% endif %}
-				{% if post.excerpt %}
-					<description>{{ post.excerpt | xml_escape }}</description>
-				{% else %}
-					<description>{{ post.content | xml_escape }}</description>
-				{% endif %}
-				<pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-				<link>{{ site.url }}{{ site.baseurl }}{{ post.url }}</link>
-				<guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}{{ post.url }}</guid>
+				<title>Neural Networks - Part 2:&lt;br&gt;Multilayer Perceptron</title>
+				
+					
+						<dc:creator>{&quot;name&quot;=&gt;&quot;Jelmer van Nuss&quot;, &quot;email&quot;=&gt;&quot;jelmervannuss@gmail.com&quot;, &quot;info&quot;=&gt;nil}</dc:creator>
+					
+				
+				
+					<description>&lt;p&gt;First paragraph.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Wed, 26 Aug 2015 00:00:00 +0200</pubDate>
+				<link>http://cygnuhss.github.io/Multilayer-Perceptron/</link>
+				<guid isPermaLink="true">http://cygnuhss.github.io/Multilayer-Perceptron/</guid>
 			</item>
-		{% endfor %}
+		
+			<item>
+				<title>Neural Networks - Part 1:&lt;br&gt;Single-layer Perceptron</title>
+				
+					
+						<dc:creator>{&quot;name&quot;=&gt;&quot;Jelmer van Nuss&quot;, &quot;email&quot;=&gt;&quot;jelmervannuss@gmail.com&quot;, &quot;info&quot;=&gt;nil}</dc:creator>
+					
+				
+				
+					<description>&lt;p&gt;Neural networks are &lt;strong&gt;classifiers&lt;/strong&gt;, meaning that they can be used to determine
+which class an object belongs to. There are several types of neural networks,
+such as the multilayer perceptron, which will be discussed in &lt;a href=&quot;/Multilayer-Perceptron/&quot;&gt;subsequent posts&lt;/a&gt;.
+Here, I will explain a simple kind of neural network, the single-layer
+perceptron.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Tue, 18 Aug 2015 00:00:00 +0200</pubDate>
+				<link>http://cygnuhss.github.io/Single-layer-Perceptron/</link>
+				<guid isPermaLink="true">http://cygnuhss.github.io/Single-layer-Perceptron/</guid>
+			</item>
+		
 	</channel>
 </rss>

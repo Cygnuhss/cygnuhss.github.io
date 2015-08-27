@@ -1,22 +1,80 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    {% for post in site.posts %}
+    
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}{{ post.url | remove: 'index.html' }}</loc>
+        <loc>http://cygnuhss.github.io/Multilayer-Perceptron/</loc>
     </url>
-    {% endfor %}
+    
+    <url>
+        <loc>http://cygnuhss.github.io/Single-layer-Perceptron/</loc>
+    </url>
+    
 
-    {% for page in site.pages %}
-    {% if page.layout != nil %}
-    {% if page.layout != 'redirect' %}
-    {% if page.ignore != true %}
+    
+    
+    
+    
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}{{ page.url | remove: 'index.html' }}</loc>
+        <loc>http://cygnuhss.github.io/404.html</loc>
     </url>
-    {% endif %}
-    {% endif %}
-    {% endif %}
-    {% endfor %}
+    
+    
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://cygnuhss.github.io/about/</loc>
+    </url>
+    
+    
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://cygnuhss.github.io/archive/</loc>
+    </url>
+    
+    
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://cygnuhss.github.io/contact/</loc>
+    </url>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://cygnuhss.github.io/</loc>
+    </url>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://cygnuhss.github.io/thanks.html</loc>
+    </url>
+    
+    
+    
+    
 </urlset>

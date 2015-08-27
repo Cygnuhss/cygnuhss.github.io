@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <title>
 
-Neural Networks - Part 2:<br>Multilayer Perceptron • Understanding AI
+Neural Networks - Part 1:<br>Single-layer Perceptron • Understanding AI
 
 </title>
 <meta name="description" content=" A guide to artificial intelligence.">
@@ -23,7 +23,7 @@ Neural Networks - Part 2:<br>Multilayer Perceptron • Understanding AI
 
 <!-- og tags -->
 <meta property="og:site_name" content="Understanding AI">
-<meta property="og:title" content="Neural Networks - Part 2:<br>Multilayer Perceptron • Understanding AI">
+<meta property="og:title" content="Neural Networks - Part 1:<br>Single-layer Perceptron • Understanding AI">
 <meta property="og:locale" content="en">
 
   
@@ -31,7 +31,7 @@ Neural Networks - Part 2:<br>Multilayer Perceptron • Understanding AI
   
 
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://cygnuhss.github.io/Multilayer-Perceptron/">
+<meta property="og:url" content="http://cygnuhss.github.io/Single-layer-Perceptron/">
 <meta property="og:description" content="
 
 A guide to artificial intelligence.
@@ -113,13 +113,13 @@ header::after {
 
 
 <article>
-  <span class="meta">Aug 26, 2015 • 14&nbsp;minute read</span>
-	<h1>Neural Networks - Part 2:<br>Multilayer Perceptron</h1>
+  <span class="meta">Aug 18, 2015 • 15&nbsp;minute read</span>
+	<h1>Neural Networks - Part 1:<br>Single-layer Perceptron</h1>
 		<p>Neural networks are <strong>classifiers</strong>, meaning that they can be used to determine
 which class an object belongs to. There are several types of neural networks,
-such as the multilayer perceptron, which will be discussed in <a href="/Single-layer-Perceptron/">subsequent posts</a>.
+such as the multilayer perceptron, which will be discussed in <a href="/Multilayer-Perceptron/">subsequent posts</a>.
 Here, I will explain a simple kind of neural network, the single-layer
-perceptron.<a href="/Single-layer-Perceptron/">following post</a></p>
+perceptron.</p>
 
 <h2 id="classification">Classification</h2>
 <p>To understand the goal of neural networks as classifiers, we have to consider
@@ -165,6 +165,8 @@ line-like.</li>
 <p>Based on the last two rules, every fruit can be placed somewhere in a graph
 with two axes, one for colour and one for shape. The two scales are
 <strong>dimensions</strong> of this classifier.</p>
+
+<hr />
 
 <p>As an alien, you do not know this yet, but humans define <code>apple</code> as something
 that lies low on the colour axis (it is a red object, rather than yellow), and
@@ -227,7 +229,7 @@ of apple-banana classification, both real numbers.</p>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/img/single-layer-perceptron/perceptron-layers.png" alt="Perceptron layers" />
+        <img src="/img/single-layer-perceptron/perceptron-layer.png" alt="Perceptron layers" />
     
     
         <p class="image-caption">The perceptron consists of a single node, getting two inputs and returning one output.</p>
@@ -244,15 +246,15 @@ of apple-banana classification, both real numbers.</p>
 
 <p>The activation function answers yes/no questions by either activating (I will
 give this the value \( 1 \)), or deactivating (this will have the value
-\( 0 \)).
+\( 0 \)).<br />
 This process of either firing or not firing is similar to how neurons in the human
 brain work, hence the name <em>neural</em> networks.</p>
 
 <p>The classification of apples and bananas can be described as a yes/no question:</p>
 
-<p><strong>Is it red and circle-like?</strong>
-Yes \( \longrightarrow \) It is an apple.
-No  \( \longrightarrow \) It is a banana.</p>
+<p><strong>Is it red and circle-like?</strong><br />
+Yes \( \longrightarrow \) It is an <code>apple</code>.<br />
+No  \( \longrightarrow \) It is a <code>banana</code>.</p>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -272,11 +274,13 @@ correctly.</p>
 
 <p>The activation function for the apple-question is thus a function that returns
 \( 1 \) if the inputs are reddish and circle-like, and \( 0 \) if the inputs
-are yellowish and line-like.
+are yellowish and line-like.<br />
 Both colour and shape might not be equally good predictors of class. It might be
 the case that colour is not as good a predictor (because some apples are slightly
 yellow), and shape turns out to be more important when classifying apples and
 bananas.</p>
+
+<hr />
 
 <p>This is where <strong>weights</strong> come in. Each input has a certain weight, that states
 how important that input is. A more important input will influence the activation
@@ -295,6 +299,10 @@ still be classified as an <code>apple</code> if it is round.</p>
 
 <p>The weights are written down as a real-valued vector:</p>
 
+<script type="math/tex; mode=display">w = (w_{colour},w_{shape})</script>
+
+<p>Or more generally:</p>
+
 <script type="math/tex; mode=display">w = (w_1,w_2,\dotsc,w_n)</script>
 
 <p>where each weight corresponds with an input.</p>
@@ -303,19 +311,18 @@ still be classified as an <code>apple</code> if it is round.</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 f(x) =\begin{cases}
-1& \text{if $w \cdot x+b>0$},\\
+1& \text{if $w \cdot x>0$},\\
 0& \text{otherwise}.
 \end{cases} %]]></script>
 
-<p>where \( w \cdot x \) is the dot product \( \sum_i w_i \cdot x_i \) and
-\( b \) is the bias, shifting the decision line independent of the inputs.</p>
+<p>where \( w \cdot x \) is the dot product \( \sum_i w_i \cdot x_i \).</p>
 
-<p>If we take a network that has more weight with respect to shape than colour,
-say \( w = (0.5, 2) \), and bias \( b = 0 \) and ask it to classify a fruit
-that is close to red, but line-like, such that the input vector is
-\( x = (0.9, -0.8) \), then we get the summed input:</p>
+<p>If we take a network that has more weight with respect to shape than to colour,
+say \( w = (0.5, 2) \), and ask it to classify a fruit that is close to red,
+but line-like, such that the input vector is \( x = (0.9, -0.8) \), then we
+get the summed input:</p>
 
-<script type="math/tex; mode=display">\sum_i w_iI_i = 0.5*0.9 + 2*-0.8 = 0.45 - 1.6 = -1.15</script>
+<script type="math/tex; mode=display">\sum_i w_ix_i = 0.5*0.9 + 2*-0.8 = 0.45 - 1.6 = -1.15</script>
 
 <p>which is less than \( 0 \), thus \( f(0.9, -0.8) = 0 \).</p>
 
@@ -334,10 +341,10 @@ that is close to red, but line-like, such that the input vector is
 <p>Another network has a different activation function, \( g \), that is
 similar to \( f \), but its weights are distributed differently. This
 network values both inputs almost equally, but thinks colour is slightly
-more relevant, say \( w = (1.1, 1) \). The bias and input remain the same.
+more relevant, say \( w = (1.1, 1) \). The input remains the same.
 Then it follows that:</p>
 
-<script type="math/tex; mode=display">\sum_i w_iI_i = 0.9*1.1 + 1*-0.8 = 0.99 - 0.8 = 0.19</script>
+<script type="math/tex; mode=display">\sum_i w_ix_i = 0.9*1.1 + 1*-0.8 = 0.99 - 0.8 = 0.19</script>
 
 <p>which is greater than \( 0 \), thus \( g(0.9, -0.8) = 1 \).</p>
 
@@ -354,25 +361,25 @@ Then it follows that:</p>
 </div>
 
 <p>Two networks can classify the same object differently if the distribution of
-weights or bias differs.
+weights differs.<br />
 Which one of the two is better depends on which can classify more objects
-correctly, or has a higher <strong>accuracy</strong>.</p>
+correctly, or has a higher <strong>accuracy</strong>, when used on a larger group of objects.</p>
 
 <p>Remember that humans are said to be able to perfectly classify fruit as <code>apple</code> or
 <code>banana</code>, meaning they have a 100% accuracy on the task. This is assumed to make
-the next stage, learning, easier and more trustworthy, but it will in practice
-almost never be reached in a single-layer perceptron, or any neural network for
-that matter.</p>
+the next stage, learning, easier and more trustworthy, but such high accuracy will
+in practice almost never be reached in a single-layer perceptron, or any neural
+network for that matter.</p>
 
 <p>Still, any improvement in accuracy is better than the simple guesswork the aliens
-rely on now. We can try to change the weights and bias randomly and test those
+rely on now. We can try to change the weights randomly and test the resulting
 networks and keep the one with the highest accuracy as our classifier of choice.
 More efficient is to progress with a certain plan, which will be a <strong>learning
 rule</strong>.</p>
 
 <h2 id="learning-rule">Learning rule</h2>
 <p>In order to increase the accuracy of our classifier, we want to change the
-weights and bias in the network in such a way that it will classify more objects
+weights in the network in such a way that it will classify more objects
 correctly. These values are changed based on a learning rule, which is an
 algorithm that is repeated until it is stopped manually when a sufficiently
 accurate classifier is achieved, or after a certain amount of iterations.</p>
@@ -384,8 +391,7 @@ accurate classifier is achieved, or after a certain amount of iterations.</p>
 output \( y_j(t) \) for the \( j \)th training input vector.</li>
   <li>The correct output \( d_j \) is given.</li>
   <li>Compare the outputs \( y_j \) and \( d_j \), change the weights
-\( w = (w_1,w_2,\dotsc,w_n)\) and bias \( b \) only if the outputs are
-different.</li>
+\( w = (w_1,w_2,\dotsc,w_n)\) only if the outputs are different.</li>
 </ol>
 
 <!-- _includes/image.html -->
@@ -404,16 +410,17 @@ them for every sample we want to take, we can just ask for an acceptable amount
 of correct outputs and then train a perceptron with that. Humans will never have
 to be spoken with again after the perceptron can classify on its own.</p>
 
-<p>Corresponding training vectors and correct outputs form a <strong>sample</strong>.</p>
-
-<p>We call \( D \) a training set of \( s \) samples such that</p>
+<p>Corresponding training vectors and correct outputs form a <strong>sample</strong>.<br />
+We call \( D \) a training set of \( s \) samples such that</p>
 
 <script type="math/tex; mode=display">D = {(x_1,d_1),(x_2,d_2),\dotsc,(x_s,d_s)}</script>
 
+<hr />
+
 <p>If the perceptron says an object is an <code>apple</code> and the human confirms this, the
 perceptron obviously has a good accuracy and no changes are needed. If the
-perceptron says it is a <code>banana</code>, we need to change the weights and bias to be
-on our way to improved accuracy.</p>
+perceptron says it is a <code>banana</code>, we need to change the weights to be on our way
+to improved accuracy.</p>
 
 <p>The amount by which we need to change the weights depends on a <strong>learning rate</strong>
 \( \alpha \), where \( 0 &lt; \alpha \leq 1 \). The higher the learning rate, the
@@ -427,23 +434,25 @@ difference between the correct output and the calculated output):</p>
 
 <p>where \( w_i(t) \) is the weight \( i \) at time \( t \).</p>
 
-<p>Given our first perceptron \( f \) with weights \( w = (0.5, 2) \) at
-\( t = 0 \),
-the training input vectors \( x = ((0.9, -0.8), (0.8, -0.5)) \),
-the correct outputs \( d = (1, 1) \),
-and the learning rate \( \alpha = 0.1 \),
-we can calculate the first iteration \( t = 1 \):</p>
+<hr />
+
+<p>Given our first <em>perceptron</em> \( f \) with <em>weights</em> \( w = (0.5, 2) \) at
+\( t = 0 \),<br />
+the training input vectors \( x = ((0.9, -0.8), (0.8, -0.5)) \),<br />
+the correct outputs \( d = (1, 1) \),<br />
+and the learning rate \( \alpha = 0.1 \),<br />
+we can calculate the first iteration \( t = 1 \).</p>
 
 <p>First, we calculate the output. As the weights and inputs are similar to our
 first example above, we get \( y_1(1) = 1 \). Or <code>apple</code> (recall that
-\( y_j(1) = 1 \) means that the object is an <code>apple</code>, and \( y_j = 0 \) means
+\( y_j = 1 \) means that the object is an <code>apple</code>, and \( y_j = 0 \) means
 that the object is a <code>banana</code>).</p>
 
 <p>Looking at our correct outputs, we see that \( d_1 = 1 \), thus
 the correct class is <code>apple</code>.</p>
 
 <p>The outputs are equal, thus no changes have to be made in the weights. This is
-seen clearly when filled in the update rule, as \( d_j-y_j(1) = 0\).</p>
+seen clearly when filled in the update rule, as \( d_1-y_1(1) = 0\).</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{equation}
@@ -458,7 +467,7 @@ w_i(1) &= w_i(0) + \alpha(d_1-y_1(1))x_{1,i}\\
 <p>Now, for a second iteration, we again calculate the output. Note that the weights
 are unchanged.</p>
 
-<script type="math/tex; mode=display">\sum_i w_iI_i = 0.5*0.8 + 2*-0.5 = 0.4 - 1 = -0.6</script>
+<script type="math/tex; mode=display">\sum_i w_ix_i = 0.5*0.8 + 2*-0.5 = 0.4 - 1 = -0.6</script>
 
 <p>which is less than 0, thus \( y_2(2) = 0 \). Or <code>banana</code>.</p>
 
@@ -467,53 +476,60 @@ the correct class is <code>apple</code>.</p>
 
 <p>The object is classified wrongly and changes in weights must be made.</p>
 
+<p>The first weight (that of the <em>colour</em> input) is changed as follows:</p>
+
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{equation}
 \begin{split}
 w_1(2) &= w_1(1) + \alpha(d_2-y_2(2))x_{2,1}\\
 &= w_1(1) + 0.1*(1 - -0.6)*x_{2,1}\\
-&= 0.5 + 0.1*1.4*0.8\\
-&= 0.5 + 0.112\\
-&= 0.612
+&= 0.5 + 0.1*1.6*0.8\\
+&= 0.5 + 0.128\\
+&= 0.628
 \end{split}
 \end{equation} %]]></script>
+
+<p>Now the second weight (that of the <em>shape</em> input) is changed as follows:</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{equation}
 \begin{split}
 w_2(2) &= w_2(1) + \alpha(d_2-y_2(2))x_{2,2}\\
 &= w_2(1) + 0.1*(1 - -0.6)*x_{2,2}\\
-&= 2 + 0.1*1.4*-0.5\\
-&= 2 + 0.07\\
-&= 2.07
+&= 2 + 0.1*1.6*-0.5\\
+&= 2 + -0.08\\
+&= 1.92
 \end{split}
 \end{equation} %]]></script>
 
-<p>thus \( w = (0.612, 2.07) \).</p>
+<p>thus \( w = (0.628, 1.92) \).</p>
 
-<p>The first input, that of colour, has now gotten more weight than the shape input.
-After a training period of several iterations, the accuracy of the classifier
+<p>The first input, that of colour, has now gotten more weight, while the shape
+input dropped in importance.
+After a training period of several iterations, you will end up with a certain
+distribution of weights \( w \) for which the accuracy of the classifier
 has most likely improved. This is how a perceptron is trained with a learning
 rule.</p>
 
-<p>After all this effort, you and your alien friends can watch in peace how humans
-devour their fruit, while classifying those with a higher accuracy than mere
-guesswork.</p>
-
 <h2 id="closing-remarks">Closing remarks</h2>
+
+<p>After all this effort, you and your alien friends can watch how humans devour
+their fruit, while classifying those with a higher accuracy than mere guesswork.</p>
 
 <p>There are several issues with perceptrons and there are some remarkable points.
 Consider what happens if humans are not able to perfectly classify their fruit.
-Then we sometimes get a faulty correct output. This will result in our
-perceptron training in the wrong direction. It is important that the correct
+Then we sometimes get a faulty correct output \( d_j \). This will result in
+our perceptron training in the wrong direction. It is important that the correct
 outputs are as pure as possible.</p>
 
-<p>The aliens have their own kind of fruit that they classify differently.
+<p>The aliens have their own kind of fruit that they classify differently.<br />
 They define <code>bpple</code> as something that is yellow and circle-like, and they define
-<code>aanana</code> as something that is red and line-like.
+<code>aanana</code> as something that is red and line-like.<br />
 This results in a classifier that is different from the classifier humans use to
-classify <code>apple</code> and <code>banana</code>.
-The same objects can be classified as different things simultaneously depending
+classify <code>apple</code> and <code>banana</code>. If we consider an slightly red and oval (in
+between circle-like and line-like) fruit, humans would classify it as <code>apple</code>,
+whereas the aliens classify it as <code>aanana</code>.
+The same object can be classified as different things simultaneously depending
 on the class definitions.</p>
 
 <!-- _includes/image.html -->
@@ -526,15 +542,16 @@ on the class definitions.</p>
     
 </div>
 
-<p>A limitation of a perceptron is the idea that not all classification problems are
+<p>A limitation of a perceptron is that not all classification problems are
 <strong>linearly separable</strong>. These problems cannot be divided by a simple line, unlike
-the apple-banana classification. If we add the class <code>pear</code> to the problem, a
-fruit that is yellow-ish and can be anywhere in between circle-like and
-line-like, it cannot be split with a simple line. Say that the problem now is
-to identify pears. So either an object is a <code>pear</code>, or it is not. We cannot
-devise a single-layer perceptron that is able to do the task.
-This limitation is solved in multilayer perceptrons, which will be discussed in
-the <a href="/Single-layer-Perceptron/">following post</a>.</p>
+the apple-banana classification.<br />
+If we add the class <code>pear</code> to the problem, a fruit that is yellow-ish and can be
+anywhere in between circle-like and line-like, it cannot be split with a simple
+line. Say that the problem now is to identify pears. So either an object is a
+<code>pear</code>, or it is not. We cannot devise a single-layer perceptron that is able to
+do the task.<br />
+This limitation is solved with multilayer perceptrons, which will be discussed in
+the <a href="/Multilayer-Perceptron/">following post</a>.</p>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -550,8 +567,16 @@ the <a href="/Single-layer-Perceptron/">following post</a>.</p>
 
 <p>For more information on this topic, consider these helpful links:</p>
 
-<p>A Wikipedia page on multilayer perceptrons:
-<img src="https://en.wikipedia.org/wiki/Multilayer_perceptron" alt="https://en.wikipedia.org/wiki/Multilayer_perceptron" /></p>
+<ul>
+  <li>A Wikipedia page on perceptrons:
+<a href="https://en.wikipedia.org/wiki/Perceptron">https://en.wikipedia.org/wiki/Perceptron</a></li>
+  <li>A Wikipedia page on activation functions:
+<a href="https://en.wikipedia.org/wiki/Activation_function">https://en.wikipedia.org/wiki/Activation_function</a></li>
+  <li>Extra examples of a single-layer perceptron:
+<a href="http://computing.dcu.ie/~humphrys/Notes/Neural/single.neural.html">http://computing.dcu.ie/~humphrys/Notes/Neural/single.neural.html</a></li>
+</ul>
+
+<p><a href="/Multilayer-Perceptron/">Neural Networks - Part 2: Multilayer Perceptron</a> is available.</p>
 
   
     
@@ -566,12 +591,12 @@ the <a href="/Single-layer-Perceptron/">following post</a>.</p>
 <div class="pagination clearfix">
   <div class="left">
     
-      <span class="disabled">‹ Next post</span>
+      <a href="/Multilayer-Perceptron/">‹ Next post</a>
     
   </div>
   <div class="right">
     
-      <a href="/Single-layer-Perceptron/">Previous post ›</a>
+      <span class="disabled">Previous post ›</span>
     
   </div>
 </div>
@@ -637,8 +662,8 @@ the <a href="/Single-layer-Perceptron/">following post</a>.</p>
 
 		ga('create', 'UA-64559081-2', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/Multilayer-Perceptron/',
-		  'title': 'Neural Networks - Part 2:<br>Multilayer Perceptron'
+		  'page': '/Single-layer-Perceptron/',
+		  'title': 'Neural Networks - Part 1:<br>Single-layer Perceptron'
 		});
 	</script>
 	<!-- End Google Analytics -->
